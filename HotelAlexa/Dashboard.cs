@@ -19,7 +19,7 @@ namespace HotelAlexa
 
         private void btnReguler_Click(object sender, EventArgs e)
         {
-            OrderPage f2 = new OrderPage();
+            Reguler f2 = new Reguler();
             f2.Show();
             this.Hide();
         }

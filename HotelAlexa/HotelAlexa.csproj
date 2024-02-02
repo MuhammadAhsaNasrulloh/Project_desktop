@@ -115,12 +115,6 @@
     <Compile Include="Dashboard.Designer.cs">
       <DependentUpon>Dashboard.cs</DependentUpon>
     </Compile>
-    <Compile Include="Order.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Order.Designer.cs">
-      <DependentUpon>Order.cs</DependentUpon>
-    </Compile>
     <Compile Include="Payment.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -129,11 +123,14 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reguler.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reguler.Designer.cs">
+      <DependentUpon>Reguler.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Dashboard.resx">
       <DependentUpon>Dashboard.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Order.resx">
-      <DependentUpon>Order.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Payment.resx">
       <DependentUpon>Payment.cs</DependentUpon>
@@ -148,6 +145,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Reguler.resx">
+      <DependentUpon>Reguler.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
