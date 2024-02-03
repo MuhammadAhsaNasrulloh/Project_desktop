@@ -14,16 +14,49 @@ namespace HotelAlexa
 {
     public partial class Reguler : Form
     {
+       
         public Reguler()
         {
             InitializeComponent();
         }
 
+        MySqlConnection conn = new MySqlConnection("server=localhost;port=3306;username=root;password=;database=hotelalexa");
+        void command(String query)
+        {
+            try
+            {
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.ExecuteNonQuery();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+        //date format
+        
+        private void Reguler_Load(object sender, EventArgs e)
+        {
+            
+            clear();
+        }
+        void clear()
+        {
+            txtNama.Text = string.Empty;
+            checkIn.Text = string.Empty;
+            checkOut.Text = string.Empty;
+        }
         private void txtJenisKamar_TextChanged(object sender, EventArgs e)
         {
-            MySqlConnection conn = new MySqlConnection("server=localhost;port=3306;username=root;password=;database=hotelalexa");
-            conn.Open();
-            MySqlCommand cmd = new MySqlCommand("SELECT jenis_kamar, jumlah_kamar, harga FROM kamar WHERE id_kamar='A'", conn);
+            MySqlConnection dra = new MySqlConnection("server=localhost;port=3306;username=root;password=;database=hotelalexa");
+            dra.Open();
+            MySqlCommand cmd = new MySqlCommand("SELECT jenis_kamar, jumlah_kamar, harga FROM kamar WHERE id_kamar='A'", dra);
             cmd.Parameters.AddWithValue("id", txtJenisKamar.Text);
             MySqlDataReader myreader;
             myreader = cmd.ExecuteReader();
@@ -34,5 +67,30 @@ namespace HotelAlexa
                 txtPrice.Text = myreader["harga"].ToString();
             }
         }
+
+        private void btnOrder_Click(object sender, EventArgs e)
+        {
+            DateTimePicker dateTimePicker = new DateTimePicker();
+            checkIn.Format = DateTimePickerFormat.Custom;
+            checkOut.Format = DateTimePickerFormat.Custom;
+
+            checkIn.CustomFormat = "yyyy-MM-dd";
+            checkOut.CustomFormat = "yyyy-MM-dd";
+            if (checkIn.Text == string.Empty || checkOut.Text == string.Empty || txtNama.Text == string.Empty)
+            {
+                MessageBox.Show("Isi data dengan Lengkap");
+            }
+            else
+            {
+
+                command("INSERT INTO pesan ( checkin, checkout, nama_pemesan) VALUES ('"+ checkIn.Text +"', '"+ checkOut.Text +"', '"+ txtNama.Text +"')");
+                clear();
+                Payment f2 = new Payment();
+                f2.Show();
+                this.Hide();
+            }
+        }
+
+       
     }
 }
