@@ -83,14 +83,18 @@ namespace HotelAlexa
             else
             {
 
-                command("INSERT INTO pesan ( checkin, checkout, nama_pemesan) VALUES ('"+ checkIn.Text +"', '"+ checkOut.Text +"', '"+ txtNama.Text +"')");
+                command("INSERT INTO pesan ( checkin, checkout, nama_pemesan, kelas_kamar) VALUES ('"+ checkIn.Text +"', '"+ checkOut.Text +"', '"+ txtNama.Text +"', '"+ txtJenisKamar.Text +"')");
+                command("UPDATE kamar SET jumlah_kamar= jumlah_kamar-1 WHERE id_kamar = 'A'");
                 clear();
-                Payment f2 = new Payment();
+                PaymentReguler f2 = new PaymentReguler();
                 f2.Show();
                 this.Hide();
             }
         }
 
-       
+        private void gunaPictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
