@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -12,9 +11,10 @@ using MySql.Data.MySqlClient;
 
 namespace HotelAlexa
 {
-    public partial class PaymentReguler : Form
+    public partial class paymentVIP : Form
     {
         MySqlConnection conn = new MySqlConnection("server=localhost;port=3306;username=root;password=;database=hotelalexa");
+
         void command(String query)
         {
             try
@@ -38,7 +38,7 @@ namespace HotelAlexa
             try
             {
                 conn.Open();
-                MySqlDataAdapter sda = new MySqlDataAdapter("SELECT pesan.id_pesan, pesan.nama_pemesan, kamar.jenis_kamar, kamar.harga  FROM pesan RIGHT JOIN kamar ON pesan.kelas_kamar = kamar.jenis_kamar WHERE kamar.jenis_kamar = 'Reguler';", conn);
+                MySqlDataAdapter sda = new MySqlDataAdapter("SELECT pesan.id_pesan, pesan.nama_pemesan, kamar.jenis_kamar, kamar.harga  FROM pesan RIGHT JOIN kamar ON pesan.kelas_kamar = kamar.jenis_kamar WHERE kamar.jenis_kamar = 'VIP';", conn);
                 DataTable dt = new DataTable();
 
                 sda.Fill(dt);
@@ -62,27 +62,37 @@ namespace HotelAlexa
             txtID.Text = string.Empty;
             showData();
         }
-        public PaymentReguler()
+        public paymentVIP()
         {
             InitializeComponent();
         }
 
-        private void PaymentReguler_Load(object sender, EventArgs e)
-        {   
+        private void gunaPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void paymentVIP_Load(object sender, EventArgs e)
+        {
             clear();
+            showData();
         }
 
-        private void txtID_TextChanged(object sender, EventArgs e)
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+            DataGridViewRow dr = this.dataGridView1.Rows[e.RowIndex];
+
+            txtID.Text = dr.Cells[0].Value.ToString();
+            txtOrder.Text = dr.Cells[1].Value.ToString();
+            txtkamar.Text = dr.Cells[2].Value.ToString();
+            txtHarga.Text = dr.Cells[3].Value.ToString();
+            showData();
         }
 
-        private void txtkamar_TextChanged(object sender, EventArgs e)
+        private void txtkamar_Click(object sender, EventArgs e)
         {
 
         }
-       
-        
 
         private void gunaButton1_Click(object sender, EventArgs e)
         {
@@ -96,27 +106,11 @@ namespace HotelAlexa
             else
             {
                 kembalian = bayar - harga;
-                command("INSERT INTO bayar VALUES ('"+ txtID.Text +"', '"+ txtOrder.Text+"', '"+ txtkamar.Text +"', '"+ txtPayment.Text +"', '"+ kembalian +"')");
-                strukPrint f2 = new strukPrint();
+                command("INSERT INTO bayar VALUES ('" + txtID.Text + "', '" + txtOrder.Text + "', '" + txtkamar.Text + "', '" + txtPayment.Text + "', '" + kembalian + "')");
+                strukvip f2 = new strukvip();
                 f2.Show();
                 this.Hide();
             }
-
-        }
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            DataGridViewRow dr = this.dataGridView1.Rows[e.RowIndex];
-
-            txtID.Text = dr.Cells[0].Value.ToString();
-            txtOrder.Text = dr.Cells[1].Value.ToString();
-            txtkamar.Text = dr.Cells[2].Value.ToString();
-            txtHarga.Text = dr.Cells[3].Value.ToString();
-            showData();
-        }
-
-        private void txtPayment_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

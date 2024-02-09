@@ -23,5 +23,27 @@ namespace HotelAlexa
             f2.Show();
             this.Hide();
         }
+
+        private void Dashboard_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnVIP_Click(object sender, EventArgs e)
+        {
+            VIP f2 = new VIP();
+            f2.Show();
+            this.Hide();
+        }
+
+        private void Dashboard_Load_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnVVIP_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
